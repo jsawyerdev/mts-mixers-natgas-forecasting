@@ -1,0 +1,77 @@
+[project]
+name = "mts-mixers-natgas-forecasting"
+version = "0.1.0"
+description = "MTS-Mixers (factorized temporal + low-rank channel mixing) tested against a channel-ablation ladder for NATGAS forecasting, on real Dukascopy cross-market data."
+readme = "README.md"
+license = "MIT"
+authors = [{ name = "James Sawyer", email = "james@jamessawyer.co.uk" }]
+requires-python = ">=3.13,<3.14"
+keywords = [
+    "commodities",
+    "dukascopy",
+    "forecasting",
+    "mixer",
+    "mts-mixers",
+    "multivariate",
+    "natural-gas",
+    "pytorch",
+    "time-series",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "dukascopy-python>=4.0.1",
+    "matplotlib>=3.10",
+    "numpy>=2.4",
+    "pandas>=2.2",
+    "pyarrow>=17.0",
+    "rich>=13.9",
+    "torch>=2.4",
+]
+
+[project.optional-dependencies]
+dev = [
+    "black>=24.10",
+    "mypy>=1.13",
+    "pandas-stubs>=2.2",
+    "pytest>=8.4",
+    "ruff>=0.16",
+]
+
+[project.scripts]
+mts-mixers-experiment = "mts_mixers_natgas.cli:main"
+
+[build-system]
+requires = ["setuptools>=80"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["mts_mixers_natgas*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.black]
+line-length = 88
+target-version = ["py313"]
+
+[tool.mypy]
+python_version = "3.13"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[[tool.mypy.overrides]]
+module = "dukascopy_python.*"
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
